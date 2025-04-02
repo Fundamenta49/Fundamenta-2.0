@@ -1,0 +1,177 @@
+import React, { useState } from "react";
+
+const VehicleGuide = () => {
+  const [vin, setVin] = useState("");
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
+  const [recalls, setRecalls] = useState([]);
+  const [vehicleDetails, setVehicleDetails] = useState([]);
+  const [crashRatings, setCrashRatings] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // Fetch Recalls by VIN
+  const fetchRecalls = async () => {
+    if (!vin) {
+      setError("Please enter a VIN number.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://api.nhtsa.gov/recalls/recallsByVehicle?vin=${vin}`
+      );
+      const data = await response.json();
+      setRecalls(data.results || []);
+    } catch (err) {
+      setError("Failed to fetch recall data. Please try again later.");
+    }
+    setLoading(false);
+  };
+
+  // Fetch Vehicle Details by Make & Year
+  const fetchVehicleDetails = async () => {
+    if (!make || !year) {
+      setError("Please enter both Make and Year.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${make}/modelyear/${year}?format=json`
+      );
+      const data = await response.json();
+      setVehicleDetails(data.Results || []);
+    } catch (err) {
+      setError("Failed to fetch vehicle details.");
+    }
+    setLoading(false);
+  };
+
+  // Fetch Crash Safety Ratings
+  const fetchCrashRatings = async () => {
+    if (!year || !make || !model) {
+      setError("Please enter Year, Make, and Model.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://api.nhtsa.gov/SafetyRatings/modelyear/${year}/make/${make}/model/${model}`
+      );
+      const data = await response.json();
+      setCrashRatings(data.Results || []);
+    } catch (err) {
+      setError("Failed to fetch crash ratings.");
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="p-6 bg-white shadow-lg rounded-lg max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Vehicle Guide</h2>
+
+      <input
+        type="text"
+        className="w-full p-2 border rounded mb-2"
+        placeholder="Enter VIN (17 characters)"
+        value={vin}
+        onChange={(e) => setVin(e.target.value)}
+      />
+      <button
+        className="w-full bg-blue-500 text-white p-2 rounded mb-4"
+        onClick={fetchRecalls}
+        disabled={loading}
+      >
+        {loading ? "Checking..." : "Check Recalls"}
+      </button>
+
+      <input
+        type="text"
+        className="w-full p-2 border rounded mb-2"
+        placeholder="Enter Make"
+        value={make}
+        onChange={(e) => setMake(e.target.value)}
+      />
+      <input
+        type="text"
+        className="w-full p-2 border rounded mb-2"
+        placeholder="Enter Model"
+        value={model}
+        onChange={(e) => setModel(e.target.value)}
+      />
+      <input
+        type="text"
+        className="w-full p-2 border rounded mb-2"
+        placeholder="Enter Year"
+        value={year}
+        onChange={(e) => setYear(e.target.value)}
+      />
+      <button
+        className="w-full bg-green-500 text-white p-2 rounded mb-4"
+        onClick={fetchVehicleDetails}
+        disabled={loading}
+      >
+        {loading ? "Fetching..." : "Get Vehicle Details"}
+      </button>
+      <button
+        className="w-full bg-red-500 text-white p-2 rounded"
+        onClick={fetchCrashRatings}
+        disabled={loading}
+      >
+        {loading ? "Fetching..." : "Check Crash Ratings"}
+      </button>
+
+      {error && <p className="text-red-500 mt-3">{error}</p>}
+
+      {recalls.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">Recall Results:</h3>
+          <ul className="mt-2 space-y-2">
+            {recalls.map((recall, index) => (
+              <li key={index} className="p-3 bg-gray-100 rounded">
+                <strong>{recall.Component}</strong>
+                <p>{recall.Summary}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {vehicleDetails.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">Vehicle Models:</h3>
+          <ul className="mt-2 space-y-2">
+            {vehicleDetails.map((vehicle, index) => (
+              <li key={index} className="p-3 bg-gray-100 rounded">
+                {vehicle.Model_Name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {crashRatings && crashRatings.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">Crash Ratings:</h3>
+          <ul className="mt-2 space-y-2">
+            {crashRatings.map((rating, index) => (
+              <li key={index} className="p-3 bg-gray-100 rounded">
+                <strong>{rating.OverallRating}</strong> - {rating.VehicleDescription}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default VehicleGuide;

@@ -1,0 +1,105 @@
+How many servings of fruits and vegetables do you eat per day?
+(A) 0-1
+(B) 2-3
+(C) 4+
+How often do you drink sugary drinks (soda, energy drinks, sweet tea)?
+(A) Daily
+(B) A few times a week
+(C) Rarely/Never
+Do you frequently eat processed or fast food?
+(A) Yes, most meals
+(B) A few times per week
+(C) Rarely/Never
+How often do you skip meals?
+(A) Frequently
+(B) Occasionally
+(C) Rarely/Never
+🚀 Results-Based Suggestion:
+
+If mostly (A) → Guide to meal planning & budget-friendly healthy eating.
+If mostly (B) → Encourage small changes for better nutrition.
+If mostly (C) → Reinforce good habits & advanced wellness tips.
+💪 2️⃣ Physical Activity & Fitness
+✅ Why? Many users struggle to stay active or find the right workout routine.
+✅ Questions:
+5. How often do you engage in physical activity (walking, workouts, sports)?
+
+(A) Rarely/Never
+(B) 2-3 times a week
+(C) 4+ times a week
+Do you have any physical limitations that make exercise difficult?
+(A) Yes
+(B) Sometimes
+(C) No
+What best describes your daily activity level?
+(A) Mostly sitting (desk job, no exercise)
+(B) Some movement (walking, occasional workouts)
+(C) Very active (frequent exercise or physical job)
+🚀 Results-Based Suggestion:
+
+If mostly (A) → Recommend simple exercises for beginners (5-minute workouts, chair exercises, etc.).
+If mostly (B) → Encourage a structured fitness plan.
+If mostly (C) → Provide advanced fitness challenges & injury prevention tips.
+😴 3️⃣ Sleep & Energy Levels
+✅ Why? Poor sleep affects mental & physical health.
+✅ Questions:
+8. How many hours of sleep do you get on an average night?
+
+(A) Less than 5
+(B) 5-7
+(C) 7+
+Do you wake up feeling rested and refreshed?
+(A) No, I feel exhausted
+(B) Sometimes
+(C) Yes, most days
+How often do you have trouble falling or staying asleep?
+(A) Almost every night
+(B) A few times a week
+(C) Rarely/Never
+🚀 Results-Based Suggestion:
+
+If mostly (A) → Suggest a structured nighttime routine & sleep hygiene tips.
+If mostly (B) → Recommend stress management techniques & sleep tracking.
+If mostly (C) → Reinforce healthy sleep habits.
+🧠 4️⃣ Stress & Mental Well-Being
+✅ Why? Mental health is as important as physical health.
+✅ Questions:
+11. How often do you feel stressed or overwhelmed?
+
+(A) Daily
+(B) A few times a week
+(C) Rarely
+Do you engage in relaxation activities (meditation, deep breathing, journaling)?
+(A) Never
+(B) Occasionally
+(C) Regularly
+How often do you feel anxious or down?
+(A) Most days
+(B) Sometimes
+(C) Rarely
+🚀 Results-Based Suggestion:
+
+If mostly (A) → Guide to stress reduction techniques, mindfulness, and professional support.
+If mostly (B) → Recommend self-care routines & journaling prompts.
+If mostly (C) → Encourage maintaining strong mental health habits.
+🧾 5️⃣ Healthcare & Preventative Care
+✅ Why? Many people don’t get check-ups or understand basic healthcare.
+✅ Questions:
+14. When was your last full health check-up?
+
+(A) Over a year ago / Never
+(B) 6-12 months ago
+(C) Within the last 6 months
+Do you have a primary healthcare provider?
+(A) No
+(B) I visit walk-in clinics when needed
+(C) Yes
+Do you have health insurance or know where to access free/low-cost healthcare?
+(A) No
+(B) Somewhat
+(C) Yes
+🚀 Results-Based Suggestion:
+
+If mostly (A) → Provide low-cost healthcare options & preventative care resources.
+If mostly (B) → Guide users on finding affordable healthcare services.
+If mostly (C) → Encourage staying proactive with health screenings & wellness check-ups.

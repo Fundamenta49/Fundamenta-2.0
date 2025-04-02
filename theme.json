@@ -1,0 +1,42 @@
+{
+  "variant": "tint",
+  "primary": "#FF3B77",
+  "appearance": "light",
+  "radius": 2,
+  "colors": {
+    "background": "#FFFFFF",
+    "foreground": "#141414",
+    "muted": "#FFFFFF",
+    "accent": "#FF3B77",
+    "primary": {
+      "default": "#FF3B77",
+      "light": "#FFF0F5",
+      "dark": "#E62D67",
+      "foreground": "#FFFFFF"
+    },
+    "secondary": {
+      "default": "#666666",
+      "light": "#F9F9F9",
+      "dark": "#333333",
+      "foreground": "#FFFFFF"
+    },
+    "text": {
+      "primary": "#333333",
+      "secondary": "#666666",
+      "muted": "#999999"
+    }
+  },
+  "effects": {
+    "shadows": {
+      "sm": "0 2px 6px rgba(0, 0, 0, 0.01)",
+      "md": "0 4px 10px rgba(0, 0, 0, 0.02)",
+      "lg": "0 8px 24px rgba(0, 0, 0, 0.03)"
+    },
+    "gradients": {
+      "primary": "linear-gradient(135deg, #FF6E9D 0%, #FF3B77 100%)",
+      "accent": "linear-gradient(135deg, #FF6E9D 0%, #FF3B77 100%)",
+      "modern": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)",
+      "card": "none"
+    }
+  }
+}

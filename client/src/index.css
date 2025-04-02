@@ -1,0 +1,225 @@
+@import '@fontsource/lora/400.css';
+@import '@fontsource/lora/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any custom styles below */
+
+:root {
+  --primary-rgb: 99, 102, 241;
+}
+
+[data-category="finance"] {
+  --primary-rgb: 34, 197, 94;
+}
+
+[data-category="career"] {
+  --primary-rgb: 59, 130, 246;
+}
+
+[data-category="wellness"] {
+  --primary-rgb: 168, 85, 247;
+}
+
+[data-category="learning"] {
+  --primary-rgb: 249, 115, 22;
+}
+
+[data-category="fitness"] {
+  --primary-rgb: 236, 72, 153;
+}
+
+[data-category="emergency"] {
+  --primary-rgb: 239, 68, 68;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer base {
+  :root {
+    --sidebar-width: 16rem;
+    --primary: 200 27% 23%;
+    --primary-foreground: 0 0% 96%;
+    --background: 0 0% 96%;
+    --foreground: 0 0% 18%;
+    --muted: 208 26% 48%;
+    --muted-foreground: 0 0% 18%;
+    --card: 0 0% 96%;
+    --card-foreground: 0 0% 18%;
+    --accent: 177 23% 71%;
+    --accent-foreground: 200 27% 23%;
+    --wood: 26 19% 69%;
+    --wood-light: 25 31% 75%;
+    --wood-dark: 26 19% 59%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 96%;
+    --border: 26 19% 69%;
+    --input: 0 0% 96%;
+    --ring: 208 26% 48%;
+    --radius: 0.75rem;
+  }
+
+  body {
+    @apply bg-texture font-serif text-navy-600;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Add a new class for input text color */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  textarea {
+    @apply text-black placeholder:text-navy-300;
+  }
+
+  main {
+    flex: 1;
+    padding: 1rem;
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    transition: margin-left 0.3s ease;
+  }
+
+  body.sidebar-minimized {
+    --sidebar-width: 5rem;
+  }
+
+  nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 50;
+    transition: width 0.3s ease;
+    background-color: #1C3D5A;
+  }
+
+  .card {
+    @apply rounded-lg transition-all duration-300 p-4;
+    border: 1px solid rgba(92, 64, 51, 0.1);
+    background-color: #F5F5F5 !important;
+    color: #2E2E2E !important;
+    width: 100%;
+  }
+
+  .card:hover {
+    @apply shadow-md;
+    border-color: rgba(92, 64, 51, 0.2);
+  }
+
+  .tabs-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 0.5rem;
+    margin-bottom: -0.5rem;
+  }
+
+  .tabs-container [role="tablist"] {
+    display: inline-flex;
+    min-width: min-content;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  h1 {
+    @apply text-2xl font-bold text-center mb-6;
+  }
+
+  @media (min-width: 640px) {
+    h1 {
+      @apply text-3xl;
+    }
+    .card {
+      @apply p-6;
+    }
+  }
+
+  .max-w-4xl {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .bg-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: auto;
+    background-position: center;
+  }
+
+  @media (max-width: 639px) {
+    main {
+      margin-left: 0;
+      width: 100%;
+      padding: 1rem 0.5rem;
+    }
+    
+    .card {
+      padding: 0.75rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .grid {
+      grid-gap: 0.75rem;
+    }
+  }
+
+  .scroll-container-x::-webkit-scrollbar,
+  .tabs-container::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .scroll-container-x::-webkit-scrollbar-track,
+  .tabs-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll-container-x::-webkit-scrollbar-thumb,
+  .tabs-container::-webkit-scrollbar-thumb {
+    background: var(--wood);
+    border-radius: 4px;
+  }
+
+  .scroll-container-x::-webkit-scrollbar-thumb:hover,
+  .tabs-container::-webkit-scrollbar-thumb:hover {
+    background: var(--wood-light);
+  }
+}

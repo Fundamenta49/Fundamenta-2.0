@@ -1,0 +1,130 @@
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { PlusCircle, Trash2, Wand2, Loader2, Upload, Download } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+
+interface Education {
+  school: string;
+  degree: string;
+  year: string;
+}
+
+interface Experience {
+  company: string;
+  position: string;
+  duration: string;
+  description: string;
+}
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
+    padding: 30,
+  },
+  section: {
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  text: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+});
+
+const ResumePDF = ({ name, email, phone, education, experience }: any) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.text}>Email: {email}</Text>
+        <Text style={styles.text}>Phone: {phone}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.title}>Education</Text>
+        {education.map((edu: Education, index: number) => (
+          <Text key={index} style={styles.text}>{edu.degree} - {edu.school} ({edu.year})</Text>
+        ))}
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.title}>Experience</Text>
+        {experience.map((exp: Experience, index: number) => (
+          <Text key={index} style={styles.text}>{exp.position} at {exp.company} ({exp.duration}) - {exp.description}</Text>
+        ))}
+      </View>
+    </Page>
+  </Document>
+);
+
+const ResumeBuilder = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [education, setEducation] = useState<Education[]>([]);
+  const [experience, setExperience] = useState<Experience[]>([]);
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Resume Builder</CardTitle>
+        <CardDescription>Fill out the form to generate your resume as a PDF.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Label>Name</Label>
+        <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        
+        <Label>Email</Label>
+        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        
+        <Label>Phone</Label>
+        <Input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        
+        <Label>Education</Label>
+        <Textarea
+          placeholder="Enter education details (one per line: Degree - School (Year))"
+          onChange={(e) => setEducation(e.target.value.split('\n').map(line => {
+            const [degree, school, year] = line.split(' - ');
+            return { degree, school, year };
+          }))}
+        />
+
+        <Label>Experience</Label>
+        <Textarea
+          placeholder="Enter experience details (one per line: Position at Company (Duration) - Description)"
+          onChange={(e) => setExperience(e.target.value.split('\n').map(line => {
+            const [position, company, duration, description] = line.split(' - ');
+            return { position, company, duration, description };
+          }))}
+        />
+
+        <PDFDownloadLink
+          document={<ResumePDF name={name} email={email} phone={phone} education={education} experience={experience} />}
+          fileName="resume.pdf"
+        >
+          {({ loading }) =>
+            loading ? <Button disabled>Generating PDF...</Button> : <Button>Download Resume</Button>
+          }
+        </PDFDownloadLink>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default ResumeBuilder;

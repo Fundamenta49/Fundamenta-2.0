@@ -1,0 +1,64 @@
+Absolutely — here’s the **top-tier AI Resume Generator** feature list in clean, **numbered bullet points** for your dev team or Cursor agent:
+
+---
+
+### 🔢 **AI Resume Generator – Feature Checklist**
+
+1. **Resume Input Options**
+   - Upload: PDF, DOCX, or TXT file
+   - Manual entry via form wizard
+   - AI conversation-based builder
+
+2. **Smart Resume Parsing**
+   - Extracts: name, contact, experience, education, skills, certifications
+   - Supports multiple file types and formatting
+   - Uses AI models (e.g., OpenAI, Affinda, Hugging Face)
+
+3. **AI-Powered Resume Writing**
+   - Converts raw entries into polished bullet points
+   - Rewrites entries with impact verbs and metrics
+   - Adapts tone and formatting for target industries
+
+4. **Interactive Resume Editor**
+   - Drag-and-drop section management
+   - Inline text editing
+   - Custom sections (Projects, Volunteering, Awards)
+
+5. **Templates & Themes**
+   - Variety of modern and ATS-friendly designs
+   - Light/dark mode toggle
+   - Real-time visual preview
+
+6. **Role-Based Optimization**
+   - Select target job title or paste job description
+   - AI tailors resume content and keywords
+   - Prioritizes relevant skills and responsibilities
+
+7. **AI-Generated Cover Letters**
+   - One-click generation from resume data
+   - Adjustable tone (friendly, formal, confident)
+   - Optional input for personalization
+
+8. **Resume Score & Feedback**
+   - AI grades formatting, clarity, ATS readiness
+   - Identifies missing sections or weak phrasing
+   - Suggests improvements for keywords and impact
+
+9. **Version Control**
+   - Save and label multiple resume versions
+   - Duplicate and edit past versions
+   - Compare versions side-by-side
+
+10. **Download & Sharing Options**
+    - Export in PDF, DOCX, or TXT
+    - Optional QR code or link for mobile access
+    - LinkedIn and job board compatibility
+
+11. **Privacy & Security**
+    - Resume data encrypted or stored locally
+    - User-controlled export/download
+    - Optional anonymous build mode (no login)
+
+---
+
+Would you like me to convert this into a UI mockup, interactive wireframe, or implementation roadmap for Cursor?

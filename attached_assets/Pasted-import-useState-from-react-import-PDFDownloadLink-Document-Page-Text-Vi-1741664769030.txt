@@ -1,0 +1,123 @@
+import { useState } from "react";
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+
+// Styles for the PDF
+const styles = StyleSheet.create({
+  page: { flexDirection: "column", backgroundColor: "#FFFFFF", padding: 30 },
+  section: { marginBottom: 10 },
+  title: { fontSize: 18, marginBottom: 10, fontWeight: "bold" },
+  text: { fontSize: 12, marginBottom: 5 },
+});
+
+// Function to dynamically detect resume sections
+const parseResumeText = (text: string) => {
+  const sections: any = { experience: [], education: [], skills: [], other: [] };
+  const lines = text.split("\n");
+
+  let currentSection = "other";
+  lines.forEach((line) => {
+    line = line.trim();
+    if (/experience|work history/i.test(line)) currentSection = "experience";
+    else if (/education/i.test(line)) currentSection = "education";
+    else if (/skills/i.test(line)) currentSection = "skills";
+    else sections[currentSection].push(line);
+  });
+
+  return sections;
+};
+
+// PDF Component
+const ResumePDF = ({ name, email, phone, resumeText }: any) => {
+  const parsedData = parseResumeText(resumeText);
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <Text style={styles.title}>{name || "Your Name"}</Text>
+          <Text style={styles.text}>Email: {email || "Not provided"}</Text>
+          <Text style={styles.text}>Phone: {phone || "Not provided"}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.title}>Experience</Text>
+          {parsedData.experience.length > 0 ? (
+            parsedData.experience.map((exp: string, index: number) => (
+              <Text key={index} style={styles.text}>{exp}</Text>
+            ))
+          ) : (
+            <Text style={styles.text}>No experience provided.</Text>
+          )}
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.title}>Education</Text>
+          {parsedData.education.length > 0 ? (
+            parsedData.education.map((edu: string, index: number) => (
+              <Text key={index} style={styles.text}>{edu}</Text>
+            ))
+          ) : (
+            <Text style={styles.text}>No education provided.</Text>
+          )}
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.title}>Skills</Text>
+          {parsedData.skills.length > 0 ? (
+            parsedData.skills.map((skill: string, index: number) => (
+              <Text key={index} style={styles.text}>{skill}</Text>
+            ))
+          ) : (
+            <Text style={styles.text}>No skills provided.</Text>
+          )}
+        </View>
+      </Page>
+    </Document>
+  );
+};
+
+// Resume Builder Component
+const ResumeBuilder = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [resumeText, setResumeText] = useState("");
+
+  return (
+    <div className="p-6 bg-white shadow-lg rounded-lg max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Resume Builder</h2>
+
+      <Label>Name</Label>
+      <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+
+      <Label>Email</Label>
+      <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+      <Label>Phone</Label>
+      <Input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+
+      <Label>Paste Resume Text</Label>
+      <Textarea
+        placeholder="Paste your resume content here. Sections will be auto-detected."
+        onChange={(e) => setResumeText(e.target.value)}
+      />
+
+      <PDFDownloadLink
+        document={<ResumePDF name={name} email={email} phone={phone} resumeText={resumeText} />}
+        fileName="resume.pdf"
+      >
+        {({ loading }) => (loading ? <Button disabled>Generating PDF...</Button> : <Button>Download Resume</Button>)}
+      </PDFDownloadLink>
+    </div>
+  );
+};
+
+export default ResumeBuilder;

@@ -1,0 +1,1 @@
+Checking for interview-practice.tsx LSP errors

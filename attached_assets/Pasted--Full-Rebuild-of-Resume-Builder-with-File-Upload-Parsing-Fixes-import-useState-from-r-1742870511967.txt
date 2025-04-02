@@ -1,0 +1,99 @@
+// 🚀 Full Rebuild of Resume Builder with File Upload & Parsing Fixes
+
+import { useState } from "react";
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { UploadCloud } from "lucide-react";
+
+// Styles
+const styles = StyleSheet.create({
+  page: { flexDirection: "column", backgroundColor: "#FFFFFF", padding: 30 },
+  section: { marginBottom: 10, color: "#000000" },
+  title: { fontSize: 20, marginBottom: 10, fontWeight: "bold", color: "#003366" },
+  text: { fontSize: 14, marginBottom: 5 },
+});
+
+const ResumePDF = ({ name, email, phone, resumeText }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text style={styles.title}>{name || "Your Name"}</Text>
+        <Text style={styles.text}>Email: {email || "Not provided"}</Text>
+        <Text style={styles.text}>Phone: {phone || "Not provided"}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.text}>{resumeText}</Text>
+      </View>
+    </Page>
+  </Document>
+);
+
+const ResumeBuilder = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [resumeText, setResumeText] = useState("");
+  const [uploadMessage, setUploadMessage] = useState("");
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const text = reader.result;
+      setResumeText(text);
+      setUploadMessage(`✅ Uploaded and parsed: ${file.name}`);
+    };
+    reader.readAsText(file);
+  };
+
+  return (
+    <div className="p-6 bg-white shadow-md rounded-lg max-w-3xl mx-auto text-gray-900">
+      <h2 className="text-2xl font-bold mb-4 text-blue-700">Resume Builder (AI Enhanced)</h2>
+
+      <div className="flex justify-between items-center mb-4">
+        <Label className="text-sm font-semibold">Upload Existing Resume</Label>
+        <div className="flex items-center gap-2">
+          <label htmlFor="resumeUpload" className="flex items-center cursor-pointer px-3 py-2 bg-blue-100 rounded-md text-sm text-blue-800 hover:bg-blue-200">
+            <UploadCloud className="w-4 h-4 mr-2" /> Choose File
+          </label>
+          <input id="resumeUpload" type="file" accept=".txt,.doc,.docx,.pdf" onChange={handleFileUpload} className="hidden" />
+        </div>
+      </div>
+      {uploadMessage && <p className="text-green-600 text-sm mb-4">{uploadMessage}</p>}
+
+      <Label>Name</Label>
+      <Input type="text" value={name} onChange={(e) => setName(e.target.value)} className="mb-3" />
+
+      <Label>Email</Label>
+      <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mb-3" />
+
+      <Label>Phone</Label>
+      <Input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="mb-3" />
+
+      <Label>Resume Content</Label>
+      <Textarea
+        className="h-32 w-full text-base px-4 py-3 rounded-md bg-gray-50 border border-gray-300"
+        placeholder="Paste or upload your resume content..."
+        value={resumeText}
+        onChange={(e) => setResumeText(e.target.value)}
+      />
+
+      <PDFDownloadLink
+        document={<ResumePDF name={name} email={email} phone={phone} resumeText={resumeText} />}
+        fileName="optimized_resume.pdf"
+      >
+        {({ loading }) => (
+          <Button className="w-full mt-4 bg-blue-700 text-white hover:bg-blue-800" disabled={!resumeText || loading}>
+            {loading ? "Generating PDF..." : "Download Resume PDF"}
+          </Button>
+        )}
+      </PDFDownloadLink>
+    </div>
+  );
+};
+
+export default ResumeBuilder;
