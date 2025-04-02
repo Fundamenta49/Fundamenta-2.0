@@ -11,7 +11,7 @@ log(`Process ID: ${process.pid}`);
 log(`Platform: ${process.platform}`);
 
 // Initialize Express
-const app = express();
+export const app = express();
 log(`Express initialized (${Date.now() - startTime}ms)`);
 
 // Basic middleware setup
@@ -31,7 +31,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check endpoint
+// Health check endpoint for testing
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok" });
+});
+
+// API Health check endpoint
 app.get("/api/health", (_req, res) => {
   const health = {
     status: "ok",
